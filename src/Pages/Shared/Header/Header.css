@@ -1,0 +1,18 @@
+.bg-color {
+    background-color: #e81c2d;
+}
+
+.logo {
+    width: 40%;
+}
+
+.signout {
+    background-color: unset;
+    border: unset;
+}
+
+.resizeImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}

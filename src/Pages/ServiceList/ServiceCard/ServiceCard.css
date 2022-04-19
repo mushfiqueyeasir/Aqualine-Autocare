@@ -1,0 +1,31 @@
+.img-rad {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+
+}
+
+.red {
+    color: #E81C2E;
+}
+
+.detail {
+    text-align: starts;
+    font-family: 'Poppins', sans-serif;
+    color: #E81C2E;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: unset;
+    border: unset;
+    text-decoration: none;
+}
+
+.detail:hover {
+    color: #171616;
+    transition: .5s;
+    transform: scale(1.1);
+}
+
+.shadow {
+    border-radius: calc(1rem - 1px);
+    box-shadow: -1px 3px 14px 4px rgba(66, 64, 66, 0.52);
+}

@@ -1,0 +1,68 @@
+.fs-1 {
+    font-size: calc(1rem + 5vw) !important;
+}
+
+.fs-7 {
+
+    font-size: 16px;
+    font-weight: bolder !important;
+    color: #E81C2E !important;
+    letter-spacing: 3px;
+
+}
+
+
+.fs-5 {
+    font-size: calc(0.8rem + .5vw) !important;
+}
+
+.image-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+.cover {
+    object-fit: cover;
+    height: 97%;
+
+}
+
+.carousel-item {
+    height: 650px;
+}
+
+
+.carousel-caption {
+    left: 0%;
+    right: 0%;
+    padding: 5px;
+    height: 100%;
+}
+
+.carousel-caption>h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--headingTitleColor);
+}
+
+.carousel-caption>p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--headingTitleColor);
+    width: 56vh;
+}
+
+
+
+.carousel-caption button {
+    border: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #E81C2E;
+    font-size: 18px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 400;
+}

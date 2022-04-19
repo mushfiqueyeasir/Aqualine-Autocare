@@ -1,0 +1,11 @@
+.emo {
+
+    width: 20%;
+}
+
+@media only screen and (max-width: 600px) {
+    .emo {
+
+        width: 50%;
+    }
+}

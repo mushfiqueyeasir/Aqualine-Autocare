@@ -1,0 +1,4 @@
+.img-rad2 {
+    object-fit: fill;
+    border-radius: calc(1rem - 1px);
+}
