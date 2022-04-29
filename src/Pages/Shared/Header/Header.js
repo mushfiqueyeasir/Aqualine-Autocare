@@ -5,13 +5,16 @@ import { Link, NavLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
-import avatar from '../../../images/avatar.jpg'
+import avatar from '../../../images/avatar.jpg';
+import king from '../../../images/king.png';
 
-const Header = () => {
+const Header = ({ admin, setAdmin }) => {
     const [user, loading, error] = useAuthState(auth);
     let url;
     try {
-        if (user.photoURL)
+        if (admin)
+            url = king;
+        else if (user.photoURL)
             url = user.photoURL;
         else
             url = avatar;
@@ -30,6 +33,9 @@ const Header = () => {
         });
     }
 
+    const handleAdminSignOut = () => {
+        setAdmin(false);
+    }
 
     return (
 
@@ -43,17 +49,29 @@ const Header = () => {
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <NavLink
-                                className="nav-link" aria-current="page" to="/">Home</NavLink>
+                                className="nav-link" aria-current="page" to="/home">Home</NavLink>
                         </li>
 
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/service">Service</NavLink>
                         </li>
+                        {
+                            admin ?
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" aria-current="page" to="/add">Add Service</NavLink>
+                                </li>
+                                :
+                                <></>
+                        }
+
 
 
                         {
                             user ?
                                 <>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" aria-current="page" to="/order">Order</NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         <button onClick={handleSignOut} className="signout nav-link active">Sign Out</button>
                                     </li>
@@ -63,9 +81,30 @@ const Header = () => {
                                 </>
 
                                 :
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" aria-current=" page" to="/Join">Join</NavLink>
-                                </li>
+                                <>
+                                    {
+                                        admin ?
+                                            <>
+                                                <li className="nav-item">
+                                                    <button onClick={handleAdminSignOut} className="signout nav-link active">Sign Out</button>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <img src={url} className='resizeImage' alt="" />
+                                                </li>
+                                            </>
+                                            :
+                                            <>
+                                                <li className="nav-item">
+                                                    <NavLink className="nav-link" aria-current=" page" to="/join">Join</NavLink>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <NavLink className="nav-link" aria-current=" page" to="/admin">Admin</NavLink>
+                                                </li>
+                                            </>
+                                    }
+
+                                </>
+
                         }
                     </ul>
                 </div>

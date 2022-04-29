@@ -1,6 +1,5 @@
 [
     {
-        "id": "1",
         "serviceName": "GENERAL SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/02/1-General-Service.png",
         "price": 1000,
@@ -11,7 +10,6 @@
         ]
     },
     {
-        "id": "2",
         "serviceName": "TRANSMISSION SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/01/TRANSMISSION-SERVICES.png",
         "price": 3000,
@@ -22,7 +20,6 @@
         ]
     },
     {
-        "id": "3",
         "serviceName": "ENGINE SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/02/3-ENGINE-SERVICES.png",
         "price": 4000,
@@ -33,7 +30,6 @@
         ]
     },
     {
-        "id": "4",
         "serviceName": "WHEELS & TIRE SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/02/4-Wheels-Tire-Services1.3.png",
         "price": 3000,
@@ -44,7 +40,6 @@
         ]
     },
     {
-        "id": "5",
         "serviceName": "AIR CONDITIONER REPAIR",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/02/5-HEATING-AIR-CONDITIONER.png",
         "price": 6000,
@@ -54,7 +49,6 @@
         ]
     },
     {
-        "id": "6",
         "serviceName": "AUTO ELECTRICAL SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/01/AUTO-ELECTRICAL.png",
         "price": 2000,
@@ -65,7 +59,6 @@
         ]
     },
     {
-        "id": "7",
         "serviceName": "BRAKE SYSTEM SERVICES",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/01/BRAKE-SYSTEM-SERVICES.png",
         "price": 3000,
@@ -76,18 +69,16 @@
         ]
     },
     {
-        "id": "8",
         "serviceName": "DENTING/PAINTING",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/10/Denting-Painting.png",
         "price": 3000,
         "detail": [
-            "Accidental dent remove works",
+            "Acent remove works",
             "Major/Minor dent works",
             "Full vehicle paint or paint color change"
         ]
     },
     {
-        "id": "9",
         "serviceName": "INTERIOR/EXTERIOR DECORATION",
         "img": "http://topgear-bd.com/wp-content/uploads/2020/10/Modification.png",
         "price": 3000,

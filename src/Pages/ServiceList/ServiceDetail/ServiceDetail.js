@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
 import { emailValidation, nameValidation, passwordValidation, phoneValidation } from '../../../utilities/validation';
 import auth from '../../../firebase.init';
 import Loading from '../../Loading/Loading';
+import axios from 'axios';
 
-const ServiceDetail = () => {
+const ServiceDetail = ({ admin }) => {
     const [user, loading] = useAuthState(auth);
-    console.log(user);
+
     if (loading) {
         <Loading />
     }
@@ -17,34 +18,56 @@ const ServiceDetail = () => {
     const Swal = require('sweetalert2');
 
 
-    const [services, setServices] = useState([])
+    const [service, setServices] = useState([])
     const { serviceID } = useParams();
 
+
     useEffect(() => {
-        fetch('/services.json')
+        const url = `https://aualine-autocare113.herokuapp.com/service/${serviceID}`;
+        fetch(url)
             .then(result => result.json())
             .then(data => setServices(data))
-    }, [])
+    }, [serviceID])
 
     let serviceName, img, price, detail;
-    if (services[serviceID]) {
-        serviceName = services[serviceID].serviceName;
-        img = services[serviceID].img;
-        price = services[serviceID].price;
-        detail = services[serviceID].detail;
+    if (service) {
+        serviceName = service.serviceName;
+        img = service.img;
+        price = service.price;
+        detail = service.detail;
     }
+
+
+
 
     const handleCheckOut = (event) => {
         event.preventDefault();
         console.log();
         if (document.getElementsByClassName('text-success').length === 4) {
-            console.log('par korce')
-            Swal.fire({
-                title: 'Success!',
-                text: 'Thanks For Your Purchase!',
-                icon: 'success',
-                confirmButtonText: 'Cool'
-            })
+            const checkout = {
+                name: event.target.name.value,
+                email: event.target.email.value,
+                address: event.target.address.value,
+                phone: event.target.phone.value,
+                service: service.serviceName,
+                serviceId: serviceID
+            }
+
+            axios.post('https://aualine-autocare113.herokuapp.com/order', checkout)
+                .then(res => {
+                    const { data } = res;
+                    if (data.insertedId) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Thanks For Your Purchase!',
+                            icon: 'success',
+                            confirmButtonText: 'Cool'
+                        })
+                        event.target.reset();
+                    }
+
+                })
+
         }
     }
 
@@ -57,29 +80,29 @@ const ServiceDetail = () => {
                     <form onSubmit={handleCheckOut} className="form login">
                         {/* Name */}
                         <div className="form__field">
-                            <label><i className={user.name ? 'fa-solid fa-user' : 'fa-solid fa-user text-success'}></i><span className="hidden"></span></label>
-                            <input value={user?.displayName} onChange={nameValidation} type="text" className="form__input" placeholder="Name" required />
+                            <label><i className={user?.displayName ? 'fa-solid fa-user  text-success' : 'fa-solid fa-user'}></i><span className="hidden"></span></label>
+                            <input value={user.displayName} onChange={nameValidation} type="text" className="form__input" name="name" placeholder="Name" required />
                         </div>
                         {/* Email */}
                         <div className="form__field">
-                            <label><i className={user.email ? 'fa-solid fa-envelope text-success' : 'fa-solid fa-envelope'}></i><span className="hidden"></span></label>
-                            <input value={user?.email} onChange={emailValidation} type="email" className="form__input" placeholder="Email" required />
+                            <label><i className={user?.email ? 'fa-solid fa-envelope text-success ' : 'fa-solid fa-envelope '}></i><span className="hidden"></span></label>
+                            <input value={user?.email} onChange={emailValidation} type="email" className="form__input" name="email" placeholder="Email" required />
                         </div>
 
                         {/* address */}
                         <div className="form__field">
                             <label><i className="fa-solid fa-map-location-dot"></i></label>
-                            <input onChange={nameValidation} type="text" className="form__input" placeholder="Address" required />
+                            <input onChange={nameValidation} type="text" className="form__input" name="address" placeholder="Address" required />
                         </div>
 
                         {/* phone number */}
                         <div className="form__field">
                             <label><i className="fa-solid fa-phone"></i><span className="hidden"></span></label>
-                            <input onChange={phoneValidation} type="number" className="form__input" placeholder="Phone Number" required />
+                            <input onChange={phoneValidation} type="number" className="form__input" name="phone" placeholder="Phone Number" required />
                         </div>
 
                         <div className="form__field">
-                            <input type="submit" value="Check Out" />
+                            <input type="submit" value="Order" />
                         </div>
 
                     </form>

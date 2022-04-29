@@ -1,0 +1,157 @@
+input,
+textarea {
+    background-image: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s
+}
+
+input[type=submit] {
+    cursor: pointer
+}
+
+.form {
+    margin: -14px;
+    margin: -.875rem
+}
+
+.form input[type=password],
+.form input[type=text],
+.form input[type=submit] {
+    width: 100%
+}
+
+.form__field {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 14px;
+    margin: .875rem
+}
+
+.form__input {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1
+}
+
+.login {
+    color: #eee
+}
+
+.login textarea,
+.login label,
+.login input[type=text],
+.login input[type=password],
+.login input[type=email],
+.login input[type=number],
+.login input[type=submit] {
+    border-radius: .25rem;
+    padding: 16px;
+    padding: 1rem
+}
+
+.login label {
+    background-color: #363b41;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 20px;
+    padding-left: 1.25rem;
+    padding-right: 20px;
+    padding-right: 1.25rem
+}
+
+.login label,
+.login input[type=text],
+.login input[type=password],
+.login input[type=email],
+.login input[type=number],
+.login input[type=submit] {
+    background-color: #3b4148;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0
+}
+
+
+.login input[type=password]:focus,
+.login input[type=password]:hover,
+.login input[type=text]:focus,
+.login input[type=text]:hover {
+    background-color: #434a52
+}
+
+.login input[type=submit] {
+    background-color: #E81C2E;
+    color: #eee;
+    font-weight: 700;
+    text-transform: uppercase
+}
+
+.login textarea {
+    background-color: #3b4148;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    color: #eee;
+    border-left: 1px solid #3b4148;
+}
+
+::placeholder {
+    color: #eee;
+    opacity: .5;
+    margin-top: 50px;
+}
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+p {
+    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
+    margin-top: 24px;
+    margin-top: 1.5rem
+}
+
+.wide {
+    width: 50%;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .wide {
+        width: 70%;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+    .wide {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .wide {
+        width: 100%;
+    }
+}
+
+.bgColor {
+    color: green;
+}

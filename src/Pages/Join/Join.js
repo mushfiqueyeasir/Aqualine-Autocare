@@ -5,7 +5,7 @@ import googleLogo from '../../images/icons8-google-96.png';
 import facebookLogo from '../../images/icons8-facebook-96.png';
 import gitLogo from '../../images/icons8-github-96.png';
 import { emailValidation, nameValidation, passwordValidation, phoneValidation } from '../../utilities/validation';
-import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle, useUpdateEmail } from 'react-firebase-hooks/auth'
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -14,11 +14,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail, updateProfile } from 'firebase/auth';
 import auth from '../../firebase.init';
+import axios from 'axios';
+import Loading from '../Loading/Loading';
 
 
 const Join = () => {
+    const [user, loading, error] = useAuthState(auth);
+    if (loading) {
+        <Loading />
+    }
 
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessageSingup, setErrorMessageSignup] = useState('');
 
     const [name, setSignUpName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -32,10 +40,11 @@ const Join = () => {
     const navigate = useNavigate();
     const from = location?.state?.from?.pathname || '/home';
 
+
     const [
         createUserWithEmailAndPassword
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-    const [updateEmail, updating, error] = useUpdateEmail(auth);
+
 
 
 
@@ -73,15 +82,20 @@ const Join = () => {
         column[0].classList.remove('backgound');
     }
 
-    const handleEmailSignIn = event => {
+    const handleEmailSignIn = async event => {
         event.preventDefault();
 
         if (document.getElementsByClassName('text-success').length === 2) {
-            console.log('dhukce')
-            signInWithEmailAndPassword(loginEmail, loginPassword)
-                .then(() => {
-                    navigate(from, { replace: true });
-                })
+            await signInWithEmailAndPassword(loginEmail, loginPassword)
+                .catch((error) => {
+                    if (error.message === 'Firebase: Error (auth/user-not-found).')
+                        setErrorMessage('Invalid Email!')
+                    else if (error.message === 'Firebase: Error (auth/wrong-password).')
+                        setErrorMessage('Invalid Password!')
+                    else
+                        setErrorMessage('');
+                });
+
 
         } else {
             return;
@@ -89,25 +103,19 @@ const Join = () => {
     }
 
 
+
+
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then(() => {
-                navigate(from, { replace: true });
-            })
     }
 
     const handleFacebookSignIn = () => {
         signInWithFacebook()
-            .then(() => {
-                navigate(from, { replace: true });
-            })
     }
     const handleGithubSignIn = () => {
         signInWithGithub()
-            .then(() => {
-                navigate(from, { replace: true });
-            })
     }
+
 
     const handleLoginEmailBlur = event => {
         setLoginEmail(event.target.value)
@@ -133,22 +141,35 @@ const Join = () => {
     const handleCreateuser = async event => {
         event.preventDefault();
         if (document.getElementsByClassName('text-success').length === 4) {
-            console.log(signUpPassword);
 
             await createUserWithEmailAndPassword(signUpEmail, signUpPassword)
                 .then(() => {
-                    navigate(from, { replace: true });
+                    updateProfile(auth.currentUser, {
+                        displayName: name
+                    }).catch((error) => {
+                        setErrorMessageSignup("Email Already Exist!")
+                    });
+
                 })
         } else {
             return;
         }
     }
 
+    // reset  Password 
     const resetPassword = async () => {
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail) || !loginEmail) {
+            setErrorMessage('Enter Valid Email!')
+        } else if (loginEmail) {
+            await sendPasswordResetEmail(auth, loginEmail).then(() => {
+                toast('Email Sent!!');
+            }).catch((error) => {
 
-        if (loginEmail) {
-            await sendPasswordResetEmail(auth, loginEmail);
-            toast('Email Sent!!');
+                if (error.message === 'Firebase: Error (auth/user-not-found).')
+                    setErrorMessage('Invalid Email!')
+                else
+                    setErrorMessage('');
+            });
         }
 
     }
@@ -175,6 +196,10 @@ const Join = () => {
                             <div className="carousel-item h-auto left w3-animate-zoom  active">
                                 <div className="grid align mt-5">
                                     <form onSubmit={handleEmailSignIn} className="form login">
+                                        {/* error */}
+                                        <div className="form__field justify-content-center">
+                                            <p className='text-danger fs-6 fw-bold'>{errorMessage}</p>
+                                        </div>
 
                                         {/* email */}
                                         <div className="form__field">
@@ -209,9 +234,9 @@ const Join = () => {
                                     </div>
 
                                     <div className="form__field justify-content-center mt-3 mb-5">
-                                        <button onClick={handleGoogleSignIn} className='btnn'><img className='img-fluid imgWidth' src={googleLogo} /></button>
-                                        <button onClick={handleFacebookSignIn} className='btnn'><img className='img-fluid imgWidth' src={facebookLogo} /></button>
-                                        <button onClick={handleGithubSignIn} className='btnn'><img className='img-fluid imgWidth' src={gitLogo} /></button>
+                                        <button onClick={handleGoogleSignIn} className='btnn'><img className='img-fluid imgWidth' src={googleLogo} alt="" /></button>
+                                        <button onClick={handleFacebookSignIn} className='btnn'><img className='img-fluid imgWidth' src={facebookLogo} alt="" /></button>
+                                        <button onClick={handleGithubSignIn} className='btnn'><img className='img-fluid imgWidth' src={gitLogo} alt="" /></button>
                                     </div>
 
                                 </div>
@@ -241,6 +266,10 @@ const Join = () => {
                             <div className="carousel-item h-auto right pt-5 pb-4 w3-animate-zoom ">
                                 <div className="grid align my-2 mb-3">
                                     <form onSubmit={handleCreateuser} className="form login">
+                                        {/* error */}
+                                        <div className="form__field justify-content-center">
+                                            <p className='text-danger fs-6 fw-bold'>{errorMessageSingup}</p>
+                                        </div>
 
                                         {/* Name */}
                                         <div className="form__field">
