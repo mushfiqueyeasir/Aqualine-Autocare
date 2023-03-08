@@ -1,7 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import logo from "../../../assets/logo-white.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Footer = () => {
   // console.log = console.warn = console.error = () => { };
 

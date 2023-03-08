@@ -26,16 +26,20 @@ function App() {
         <Route path="/" element={<Navigate to="/home" />} />
         <Route
           path="/home"
-          element={<HomePage admin={admin} setAdmin={setAdmin} />}
+          element={<HomePage user={user} admin={admin} setAdmin={setAdmin} />}
         />
 
         <Route
           path="/service"
-          element={<ServiceViewPage admin={admin} setAdmin={setAdmin} />}
+          element={
+            <ServiceViewPage user={user} admin={admin} setAdmin={setAdmin} />
+          }
         />
         <Route
           path="/service/:serviceID"
-          element={<ServiceDetailPage admin={admin} setAdmin={setAdmin} />}
+          element={
+            <ServiceDetailPage user={user} admin={admin} setAdmin={setAdmin} />
+          }
         ></Route>
 
         <Route
@@ -47,16 +51,20 @@ function App() {
 
         <Route
           path="/add"
-          element={<AddServicePage admin={admin} setAdmin={setAdmin} />}
+          element={
+            <AddServicePage user={user} admin={admin} setAdmin={setAdmin} />
+          }
         />
         <Route
           path="/modify/:id"
-          element={<EditServicePage admin={admin} setAdmin={setAdmin} />}
+          element={
+            <EditServicePage user={user} admin={admin} setAdmin={setAdmin} />
+          }
         />
 
         <Route
           path="/join"
-          element={<JoinPage admin={admin} setAdmin={setAdmin} />}
+          element={<JoinPage user={user} admin={admin} setAdmin={setAdmin} />}
         />
 
         <Route

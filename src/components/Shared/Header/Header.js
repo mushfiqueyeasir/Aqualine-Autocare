@@ -2,14 +2,13 @@ import React from "react";
 import "./Header.css";
 import logo from "../../../assets/logo-white.png";
 import { Link, NavLink } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+
 import auth from "../../../firebase.init";
 import { signOut } from "firebase/auth";
 import avatar from "../../../assets/avatar.jpg";
 import king from "../../../assets/king.png";
 
-const Header = ({ admin, setAdmin }) => {
-  const [user, loading, error] = useAuthState(auth);
+const Header = ({ user, admin, setAdmin }) => {
   let url;
   try {
     if (admin) url = king;
@@ -34,9 +33,9 @@ const Header = ({ admin, setAdmin }) => {
   return (
     <nav className=" navbar navbar-expand-lg navbar-dark bg-color">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <Link to="/home" className="navbar-brand">
           <img src={logo} className="logo img-fluid" alt="" />
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -109,20 +108,12 @@ const Header = ({ admin, setAdmin }) => {
                 ) : (
                   <>
                     <li className="nav-item">
-                      <NavLink
-                        className="nav-link"
-                        aria-current=" page"
-                        to="/join"
-                      >
+                      <NavLink className="nav-link" to="/join">
                         Join
                       </NavLink>
                     </li>
                     <li className="nav-item">
-                      <NavLink
-                        className="nav-link"
-                        aria-current=" page"
-                        to="/admin"
-                      >
+                      <NavLink className="nav-link" to="/admin">
                         Admin
                       </NavLink>
                     </li>

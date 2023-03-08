@@ -30,7 +30,7 @@ const EditService = ({ service }) => {
   };
   return (
     <div>
-      <div className="container fullHeight">
+      <div className="container ">
         <h2 className="text-center my-5 fw-bold">Modify Service</h2>
 
         <form

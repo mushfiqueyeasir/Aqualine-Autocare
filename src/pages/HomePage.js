@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Home from "../components/Home/Home/Home";
 import ServiceBanner from "../components/Home/ServiceBanner/ServiceBanner";
 import Loading from "../components/Loading/Loading";
@@ -7,7 +7,7 @@ import Footer from "../components/Shared/Footer/Footer";
 import Header from "../components/Shared/Header/Header";
 import useFetch from "../hooks/useFetch";
 
-const HomePage = ({ admin, setAdmin }) => {
+const HomePage = ({ user, admin, setAdmin }) => {
   const [services, loading, refetch] = useFetch({ api: "service" });
   if (loading) {
     return <Loading />;
@@ -15,7 +15,7 @@ const HomePage = ({ admin, setAdmin }) => {
 
   return (
     <div>
-      <Header admin={admin} setAdmin={setAdmin} />
+      <Header user={user} admin={admin} setAdmin={setAdmin} />
       <Home />
       <ServiceBanner />
       <ServiceView
