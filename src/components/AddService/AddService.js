@@ -25,7 +25,7 @@ const AddService = () => {
   };
 
   return (
-    <div className="container fullHeight">
+    <div className="container ">
       <h2 className="text-center my-5 fw-bold">Add Service</h2>
 
       <form

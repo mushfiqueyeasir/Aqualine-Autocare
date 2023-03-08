@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from "react";
 import "./Join.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +12,6 @@ import {
   phoneValidation,
 } from "../../utilities/validation";
 import {
-  useAuthState,
   useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
   useSignInWithFacebook,
@@ -21,32 +21,19 @@ import {
 
 import { ToastContainer, toast } from "react-toastify";
 
-import { useLocation, useNavigate } from "react-router-dom";
 import { sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import auth from "../../firebase.init";
-import axios from "axios";
-import Loading from "../Loading/Loading";
 
 const Join = () => {
-  const [user, loading, error] = useAuthState(auth);
-  if (loading) {
-    <Loading />;
-  }
-
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageSingup, setErrorMessageSignup] = useState("");
 
   const [name, setSignUpName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  const from = location?.state?.from?.pathname || "/home";
 
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(
     auth,
@@ -128,9 +115,6 @@ const Join = () => {
   };
   const handleSignUpPasswordBlur = (event) => {
     setSignUpPassword(event.target.value);
-  };
-  const handleSignUpPhonedBlur = (event) => {
-    setPhoneNumber(event.target.value);
   };
 
   const handleCreateuser = async (event) => {
@@ -355,7 +339,6 @@ const Join = () => {
                         <span className="hidden"></span>
                       </label>
                       <input
-                        onBlur={handleSignUpPhonedBlur}
                         onChange={phoneValidation}
                         type="number"
                         className="form__input"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Admin.css";
 const Admin = ({ setAdmin }) => {
@@ -31,7 +31,7 @@ const Admin = ({ setAdmin }) => {
   };
 
   return (
-    <div className="container my-5 fullHeight">
+    <div className="container my-5 ">
       <h2 className="text-center fw-bold">Admin Login</h2>
 
       <form onSubmit={handleLogin} className="form login  wide mx-auto">
